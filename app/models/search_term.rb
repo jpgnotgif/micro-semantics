@@ -1,5 +1,5 @@
 class SearchTerm
-  attr_reader :value
+  attr_accessor :value
   include ActiveModel::Validations
 
   def initialize(value = nil)
