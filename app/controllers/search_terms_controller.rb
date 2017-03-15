@@ -6,7 +6,7 @@ class SearchTermsController < ApplicationController
   def create
     @search_term = SearchTerm.new(search_term_params[:value])
     if @search_term.valid?
-      redirect_to products_path(@search_term.value)
+      redirect_to products_path(name: @search_term.value)
     else
       render :new
     end
