@@ -1,29 +1,10 @@
-<%= form_for @search_term, :html => { :class => "form-horizontal product" } do |f| %>
-
+<%= simple_form_for(:search_term, url: search_terms_path) do |f| %>
   <% if @search_term.errors.any? %>
-    <div id="error_expl" class="panel panel-danger">
-      <div class="panel-body">
-        <ul>
-        <% @search_term.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-        </ul>
-      </div>
+    <div id="error_explanation">
+      Please enter a product name (i.e. "IPhone 7")
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= f.label 'Enter a product name', :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.text_field :value, :class => 'form-control' %>
-    </div>
-    <%=f.error_span(:value) %>
-  </div>
-
-  <div class="form-group">
-    <div class="col-lg-offset-2 col-lg-10">
-      <%= f.submit 'Search', :class => 'btn btn-primary' %>
-    </div>
-  </div>
-
+  <%= f.input :value, label: 'Enter a product name' %>
+  <%= f.button :submit, 'Search'  %>
 <% end %>
