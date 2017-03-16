@@ -1,21 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe ProductsController, type: :controller do
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
-
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
-
-  let(:valid_session) { {} }
-
   describe "GET #index" do
-    pending 'implement'
-  end
+    it 'shows products' do
+      get :index, params: { name: 'ipad' }
+      expect(response).to be_successful
+    end
 
-  describe "GET #show" do
-    pending 'implement'
+    it 'redirects if search term is not present' do
+      get :index
+      expect(response).to redirect_to('/')
+    end
   end
 end

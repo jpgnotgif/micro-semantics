@@ -1,8 +1,9 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :validate_search_term
 
   def index
-    @product_aggregator = ProductAggregator.new(SearchTerm.new(params[:name]))
+    @product_aggregator = ProductAggregator.new(SearchTerm.new(product_params[:name]))
     @product_aggregator.aggregate
     @products = @product_aggregator.products
   end
@@ -19,6 +20,11 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:search_term).permit(:search_term)
+      params.permit(:name)
+    end
+
+    def validate_search_term
+      name = product_params[:name]
+      redirect_to '/' unless name.present?
     end
 end

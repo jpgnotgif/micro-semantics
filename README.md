@@ -1,24 +1,31 @@
-# README
+# Semantics3 API code simulation
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Requirements
+1. Ruby version = 2.4
+2. Rails version = 5.0.2
 
-Things you may want to cover:
+## How to start the application
+1. Run bundler
+```
+bundle install
+```
 
-* Ruby version
+2. Create necessary databases
+```
+bundle exec rake db:create:all
+```
 
-* System dependencies
+3. Run migrations
+```
+bundle exec rake db:migrate
+```
 
-* Configuration
+4. Create .env file for storing Semantics3 API keys
+```
+echo "API_KEY=<YOUR_API_KEY_HERE>\nAPI_SECRET=<YOUR_API_SECRET_HERE>" >> .env
+```
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+5. Run the server
+```
+bundle exec rails s
+```
