@@ -45,3 +45,4 @@ pickle-email-*.html
 
 .bundle
 .gems
+.env

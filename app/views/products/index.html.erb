@@ -5,26 +5,22 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:image_url) %></th>
       <th><%= model_class.human_attribute_name(:manufacturer) %></th>
       <th><%= model_class.human_attribute_name(:model) %></th>
-      <th><%= model_class.human_attribute_name(:term) %></th>
+      <th>Search Term used</th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @products.each do |product| %>
       <tr>
-        <td><%= link_to product.id, product_path(product) %></td>
-        <td><%= product.name %></td>
-        <td><%= product.image_url %></td>
+        <td><%= link_to(product.name, product_path(product)) %></td>
         <td><%= product.manufacturer %></td>
         <td><%= product.model %></td>
         <td><%= product.term %></td>
-        <td><%=l product.created_at %></td>
+        <td><%= product.created_at %></td>
         <td>
           <%= link_to t('.show', :default => t("helpers.links.show")),
                       product_path(product), :class => 'btn btn-default btn-xs' %>

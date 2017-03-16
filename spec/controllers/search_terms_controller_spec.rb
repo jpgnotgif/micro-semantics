@@ -10,11 +10,8 @@ RSpec.describe SearchTermsController, type: :controller do
     end
 
     it 'validates search term' do
-      params = {
-        value: value
-      }
-      post :create, params
-      expect(response).to redirect_to(products_path)
+      post :create, params: { search_term: { value: value } }
+      expect(response).to redirect_to(products_path(value.downcase))
     end
   end
 end
