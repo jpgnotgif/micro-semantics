@@ -50,6 +50,8 @@ group :development, :test do
   gem 'vcr'
   gem 'webmock'
   gem 'dotenv-rails'
+  gem 'factory_girl_rails'
+  gem 'faker'
 end
 
 group :development do

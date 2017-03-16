@@ -13,6 +13,9 @@ class ProductAggregator
 
       if @products.empty?
         @client.products_field('search', @search_term.value)
+        @client.products_field('activeoffersonly', '1')
+        @client.products_field('activesiteonly', '1')
+
         data = OpenStruct.new(@client.get_products)
 
         raise "[Semantics3 API] Received code #{data.code.inspect}" if data.code != 'OK'
@@ -21,6 +24,20 @@ class ProductAggregator
 
         Product.transaction do
           @products = api_products.map do |api_product|
+            api_product.sitedetails.each do |site_detail|
+              seller = Seller.find_or_create_by!(name: site_detail['name'])
+              site_detail['latestoffers'].each do |offer|
+                offer_attrs = {
+                  seller_id: seller.id,
+                  name: offer['seller'],
+                  price: offer['price'],
+                  currency: offer['currency'],
+                  url: site_detail['url']
+                }
+                SellerOffer.create!(offer_attrs)
+              end
+            end
+
             product_attrs = {
               name: api_product.name,
               image_url: api_product.images.first,
@@ -28,9 +45,8 @@ class ProductAggregator
               model: api_product.model,
               term: @search_term.value
             }
-            product = Product.create!(product_attrs)
-            raise 'Failed to create product' unless product.persisted?
-            product
+
+            Product.create!(product_attrs)
           end
         end
       end

@@ -46,3 +46,4 @@ pickle-email-*.html
 .bundle
 .gems
 .env
+.byebug_history
