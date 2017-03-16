@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
-  before_action :validate_search_term
+  before_action :validate_search_term, only: [:index]
 
   def index
     @product_aggregator = ProductAggregator.new(SearchTerm.new(product_params[:name]))
