@@ -1,5 +1,7 @@
 # Semantics3 API code simulation
 
+<img src="https://github.com/jpgnotgif/micro-semantics/blob/master/micro-semantics-demo.gif" width="600" height="300">
+
 ## Requirements
 1. Ruby version = 2.4
 2. Rails version = 5.0.2
