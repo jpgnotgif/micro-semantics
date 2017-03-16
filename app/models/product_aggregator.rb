@@ -25,10 +25,10 @@ class ProductAggregator
         Product.transaction do
           @products = api_products.map do |api_product|
             api_product.sitedetails.each do |site_detail|
-              seller = Seller.find_or_create_by!(name: site_detail['name'])
+              @seller = Seller.find_or_create_by!(name: site_detail['name'])
               site_detail['latestoffers'].each do |offer|
                 offer_attrs = {
-                  seller_id: seller.id,
+                  seller_id: @seller.id,
                   name: offer['seller'],
                   price: offer['price'],
                   currency: offer['currency'],
@@ -46,7 +46,9 @@ class ProductAggregator
               term: @search_term.value
             }
 
-            Product.create!(product_attrs)
+            product = Product.create!(product_attrs)
+            ProductsSeller.create!(product_id: product.id, seller_id: @seller.id)
+            product
           end
         end
       end

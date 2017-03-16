@@ -4,14 +4,31 @@
 </div>
 
 <dl class="dl-horizontal">
-  <dd><%= image_tag(@product.image_url) %></dd>
+  <dd><%= image_tag(@product.image_url, size: '100x100') %></dd>
   <dt><strong><%= model_class.human_attribute_name(:manufacturer) %>:</strong></dt>
   <dd><%= @product.manufacturer %></dd>
   <dt><strong><%= model_class.human_attribute_name(:model) %>:</strong></dt>
   <dd><%= @product.model %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:term) %>:</strong></dt>
-  <dd><%= @product.term %></dd>
 </dl>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Seller name</th>
+      <th>Price</th>
+      <th>Link</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @offers.each do |offer| %>
+      <tr>
+        <td><%= offer.name %></td>
+        <td><%= number_to_currency(offer.price) %> <%= offer.currency %></td>
+        <td><%= link_to(offer.url, offer.url) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
               products_path(name: @product.term), :class => 'btn btn-default'  %>

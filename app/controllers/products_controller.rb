@@ -8,6 +8,7 @@ class ProductsController < ApplicationController
   end
 
   def show
+    @offers = SellerOffer.where(seller_id: @product.seller_ids)
   end
 
   private
